@@ -1,0 +1,277 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Misa CukCuk</title>
+    <link rel="stylesheet" href="./assets/font/fontawesome-5.15.1/css/all.min.css">
+    <link rel="stylesheet" href="./css/main.css">
+</head>
+
+<body>
+    <div class="container">
+        <div class="header">
+            <div class="header__left">
+                <div class="header__left--logo">
+                    <div class="header-menu img"></div>
+                    <div class="header-logo img"></div>
+                </div>
+                <div class="header__left--select">
+                    <select name="" id="" class="title2">
+                        <option value="" selected>Nhà Hàng Biển Đông</option>
+                    </select>
+                </div>
+            </div>
+            <div class="header__right">
+                <div class="notification"><i class="fas fa-bell"></i></div>
+                <div class="user-avatar img"></div>
+                <div class="user-name">Lê Hoài Nam</div>
+                <div class="more-btn img"></div>
+            </div>
+        </div>
+        <div class="sidebar">
+            <div class="sidebar__item sidebar__item--focus">
+                <img src="./assets/icon/document-online.png">
+                <span>Hồ sơ điện tử</span>
+            </div>
+            <div class="sidebar__item">
+                <img src="./assets/icon/document-online.png"> <span>Hồ sơ giấy</span>
+            </div>
+            <div class="sidebar__item">
+                <img src="./assets/icon/report.png"> <span>Theo dõi chỉ</span>
+            </div>
+            <div class="sidebar__item">
+                <img src="./assets/icon/dashboard.png"> <span>Theo dõi đóng</span>
+            </div>
+            <div class="sidebar__item">
+                <img src="./assets/icon/dic-employee.png"> <span>Quản lý lao động</span>
+            </div>
+            <div class="sidebar__item">
+                <img src="./assets/icon/setting.png"> <span>Thiết lập</span>
+            </div>
+            <div class="minimize-btn">
+                <label for=""><i class="fas fa-chevron-left"></i></label>
+            </div>
+        </div>
+        <div class="content">
+            <div class="content__wrapper">
+                <div class="content__header">
+                    <div class="content__header--left">
+                        <div class="title">
+                            Danh sách nhân viên
+                        </div>
+                        <div class="header-sort" id="EmployeeFilter">
+                            <input type="text" Filter="search" class="search-box img"
+                                placeholder="Tìm kiếm theo Mã, Tên hoặc Số điện thoại">
+                            <select name="" Filter="department" SelectID="department-select" class="select">
+                            </select>
+                            <select name="" Filter="position" SelectID="position-select" class="select">
+                            </select>
+                        </div>
+                    </div>
+                    <div class="content__header--right" id="ToolbarEmployee">
+                        <button CommandType="add" class="hn-btn hn-add-btn img">Thêm mới nhân viên</button>
+                        <div class="btn-box">
+                            <button CommandType="delete" class="hn-btn-2 img delete-btn" disabled></button>
+                            <button CommandType="replication" class="hn-btn-2 img replication-btn" disabled></button>
+                            <button CommandType="refresh" class="hn-btn-2 img refresh-btn"></button>
+                        </div>
+                    </div>
+                </div>
+                <div class="content__body">
+                    <div id="gridEmployee" Url="https://cukcuk.manhnv.net/api/v1/Employees"
+                        Toolbar="ToolbarEmployee">
+                        <div class="col" ClassName="col-1" FieldName="employeeCode">Mã nhân viên</div>
+                        <div class="col" ClassName="col-2" FieldName="employeeName">Họ và tên</div>
+                        <div class="col" ClassName="col-3" FieldName="gender" DataType="Enum">Giới tính</div>
+                        <div class="col" ClassName="col-4" FieldName="dateOfBirth" DataType="Date">Ngày sinh</div>
+                        <div class="col" ClassName="col-5" FieldName="phoneNumber">Điện thoại</div>
+                        <div class="col" ClassName="col-6" FieldName="email">Email</div>
+                        <div class="col" ClassName="col-7" FieldName="positionName">Chức vụ</div>
+                        <div class="col" ClassName="col-8" FieldName="departmentName">Phòng ban</div>
+                        <div class="col" ClassName="col-9" FieldName="salary" DataType="Number">Mức Lương cơ bản</div>
+                        <div class="col" ClassName="col-10" FieldName="workStatus" DataType="Enum">Tình trạng công việc
+                        </div>
+                    </div>
+                </div>
+                <div class="content__footer">
+                    <p style="margin-left: 4px;">
+                        Hiển thị 
+                        <span SetField="pageInfo" class="title2" style="font-size: 13px;">01-20/</span>
+                        <span SetField="totalCount" class="title2" style="font-size: 13px;">123</span>
+                        lao động
+                    </p>
+                    <div class="navigations">
+                        <button NavigationField="doublePrev" class="double_prev"><i class="fas fa-angle-double-left"></i></button>
+                        <button NavigationField="prev" class="prev"><i class="fas fa-angle-left"></i></button>
+                        <!-- Danh sách các nút phân trang -->
+                        <div class="navigation-pages"></div>
+                        <button NavigationField="next" class="next"><i class="fas fa-angle-right"></i></button>
+                        <button NavigationField="doubleNext" class="double_next"><i class="fas fa-angle-double-right"></i></button>
+                    </div>
+                    <div class="page-size">
+                        <input SetField="pageSize" type="number" min="20" max="200" value="20">
+                        <span>nhân viên/trang</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="sub-container hide" id="EmployeeDetail">
+        <div class="form">
+            <div class="form__header heading">THÔNG TIN NHÂN VIÊN</div>
+            <div class="form__body">
+                <div class="image">
+                    <label for="avatar"><img src="./assets/img/default-avatar.jpg" alt=""></label>
+                    <input type="file" name="" id="avatar">
+                    <p>(Vui lòng chọn ảnh có định dạng </p>
+                    <p>.jpg, .jpeg, .png, .gif)</p>
+                </div>
+                <div class="form__body--content">
+                    <div class="content-information">
+                        <div class="title2">A. THÔNG TIN CHUNG</div>
+                        <div class="border-bottom"></div>
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="" class="label">Mã nhân viên (<span>*</span>)</label>
+                                <input SetField="employeeCode" Required="true" type="text" class="form-control" tabindex="1">
+                            </div>
+                            <div class="form-group">
+                                <label for="" class="label">Họ và tên (<span>*</span>)</label>
+                                <input SetField="employeeName" Required="true" type="text" class="form-control" tabindex="2">
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="" class="label">Ngày sinh</label>
+                                <input SetField="dateOfBirth" DataType="Date" type="date" class="form-control" tabindex="3">
+                            </div>
+                            <div class="form-group">
+                                <label for="" class="label">Giới tính</label>
+                                <select SetField="gender" DataType="Enum" name="" id="" class="form-control" tabindex="4">
+                                    <option value="1">Nam</option>
+                                    <option value="0">Nữ</option>
+                                    <option value="2">Khác</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="" class="label">Số CMTND/Căn cước (<span>*</span>)</label>
+                                <input SetField="identityNumber" Required="true" type="text" class="form-control" tabindex="5">
+                            </div>
+                            <div class="form-group">
+                                <label for="" class="label">Ngày cấp</label>
+                                <input SetField="identityIssuedDate" DataType="Date" type="date" class="form-control" tabindex="6">
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="" class="label">Nơi cấp</label>
+                                <input SetField="identityIssuedPlace" type="text" class="form-control" tabindex="7">
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="" class="label">Email(<span>*</span>)</label>
+                                <input SetField="email" Required="true" type="email" name="" id="" class="form-control" tabindex="8">
+                            </div>
+                            <div class="form-group">
+                                <label for="" class="label">Số điện thoại(<span>*</span>)</label>
+                                <input SetField="phoneNumber" Required="true" type="text" name="" id=""
+                                    class="form-control" tabindex="9">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="content-information">
+                        <div class="title2">B. THÔNG TIN CÔNG VIỆC</div>
+                        <div class="border-bottom"></div>
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="" class="label">Vị trí</label>
+                                <select SetField="positionID" Required="true" SelectID="position-select" name="" id=""
+                                    class="form-control" tabindex="10">
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label for="" class="label">Phòng ban</label>
+                                <select SetField="departmentID" Required="true" SelectID="department-select" name="" id=""
+                                    class="form-control" tabindex="11">
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="" class="label">Mã số thuế cá nhân(<span>*</span>)</label>
+                                <input SetField="taxCode" Required="true" type="number" name="" id=""
+                                    class="form-control" tabindex="12">
+                            </div>
+                            <div class="form-group currency-group">
+                                <label for="" class="label">Mức lương(<span>*</span>)</label>
+                                <input SetField="salary" DataType="Number" Required="true" type="text"
+                                    class="form-control salary-input" tabindex="13">
+                                <p class="currency">(VNĐ)</p>
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="" class="label">Ngày gia nhập công ty</label>
+                                <input SetField="joiningDate" DataType="Date" type="date" class="form-control" tabindex="14">
+                            </div>
+                            <div class="form-group">
+                                <label for="" class="label">Tình trạng công việc</label>
+                                <select SetField="workStatus" Required="true" DataType="Enum" name="" id="" class="form-control" tabindex="15">
+                                    <option value="0">Chưa làm việc</option>
+                                    <option value="1">Đang làm việc</option>
+                                    <option value="2">Ngừng làm việc</option>
+                                    <option value="3">Đã nghỉ việc</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="form-btn toolbar-form">
+                <div CommandType="close" class="close-btn"><i class="fas fa-times"></i></div>
+                <button CommandType="close" class="hn-btn cancel-btn" tabindex="17">Hủy</button>
+                <button CommandType="save" class="hn-btn img save-btn" tabindex="16">Lưu</button>
+            </div>
+        </div>
+    </div>
+    <div class="sub-container hide" id="ConfirmForm">
+        <div class="form">
+            <div class="form__header form__header-2 title">
+                Xác nhận xóa
+            </div>
+            <div class="form__body">
+                <div class="form-content">
+                    <div class="warning img"></div>
+                    <div class="content">
+                        <p>Bạn có chắc muốn xóa nhân viên có mã nhân viên là: </p>
+                        <input type="text" SetField="employeeCode" disabled>
+                    </div>
+                </div>
+            </div>
+            <div class="form-btn toolbar-form">
+                <div CommandType="close" class="close-btn close-btn-2"><i class="fas fa-times"></i></div>
+                <button CommandType="close" class="hn-btn cancel-btn">Hủy</button>
+                <button CommandType="delete" class="hn-btn img delete-btn2">Xóa</button>
+            </div>
+        </div>
+    </div>
+    <div class="toast-messenger" id="toast-messenger"></div>
+    <!-- Thư viện jquery -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+
+    <!-- Các file dùng chung -->
+    <script src="./js/common/common.js"></script>
+    <script src="./js/common/enumeration.js"></script>
+    <script src="./js/common/resource.js"></script>
+
+    <script src="./js/employee/employeeDetail.js"></script>
+    <script src="./js/employee/employee.js"></script>
+</body>
+
+</html>
